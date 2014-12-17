@@ -1,0 +1,16 @@
+#queryField {
+    width: 900px;
+    margin: auto;
+    padding: 10px;
+}
+
+#queryField input[type=text] {
+    height: 30px;
+    width: 740px;
+}
+
+#queryField button {
+    height: 36px;
+    width: 150px;
+    margin: auto;
+}

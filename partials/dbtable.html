@@ -1,0 +1,19 @@
+<table>
+    <tr>
+        <td class="tableName">{{data.name}}</td>
+    </tr>
+    <tr>
+        <td ng-if="data.columns[$index] !== 'sequence_number'"
+            ng-repeat="column in data.columns"
+            class="columnName">{{column}}</td>
+    </tr>
+    <tr ng-repeat="row in data.points"
+        ng-class-even="'lightRow'"
+        ng-class-odd="'darkRow'">
+        <td ng-if="data.columns[$index] !== 'sequence_number'"
+            ng-repeat="cell in row"
+            ng-class="[data.columns[$index], 'cell']">
+            {{data.columns[$index] !== 'time' ? cell : formatTime(cell)}}
+        </td>
+    </tr>
+</table>

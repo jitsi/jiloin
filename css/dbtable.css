@@ -1,0 +1,45 @@
+table {
+    border-collapse: collapse;
+    margin: 10px auto 10px auto;
+    width: 900px;
+}
+
+.tableName {
+    border: none;
+    text-align: center;
+    font-weight: bold;
+}
+
+.columnName {
+    border: 1px solid black;
+    height: 40px;
+    padding: 5px;
+    background-color: #1A515D;
+    text-align: center;
+}
+
+.cell {
+    height: 40px;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+.lightRow {
+    background-color: white;
+}
+
+.darkRow {
+    background-color: #e9fff1;
+}
+
+.time, .sequence_number {
+    width: 150px;
+}
+
+.conference_id {
+    width: 150px;
+}
+
+.focus {
+    width: 650px;
+}
