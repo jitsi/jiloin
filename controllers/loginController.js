@@ -3,5 +3,5 @@ angular.module('jitsiLogs').
         $scope.login = function() {
             Database.connect($scope.username, $scope.password);
             $location.path('/queries');
-        }
+        };
 }]);

@@ -13,7 +13,10 @@
         <td ng-if="data.columns[$index] !== 'sequence_number'"
             ng-repeat="cell in row"
             ng-class="[data.columns[$index], 'cell']">
-            {{data.columns[$index] !== 'time' ? cell : formatTime(cell)}}
+            <a ng-if="isLink($index)" href="{{getLink(cell, $index)}}">{{cell}}</a>
+            <span ng-if="!isLink($index)">
+                {{data.columns[$index] !== 'time' ? cell : formatTime(cell)}}
+            </span>
         </td>
     </tr>
 </table>

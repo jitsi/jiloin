@@ -1,9 +1,9 @@
-<div ng-init="makeQuery()">
+<div>
     <div id="queryField">
         <input type="text" placeholder="select * from /.*/" ng-model="query">
         <button ng-click="makeQuery()">Query</button>
     </div>
     <span  ng-repeat="data in response">
-        <db-table data="data"></db-table>
+        <db-table data="data" queries="queries"></db-table>
     </span>
 </div>
