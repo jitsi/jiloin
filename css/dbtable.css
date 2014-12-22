@@ -1,7 +1,31 @@
+.db-table {
+    border-radius: 20px;
+    padding: 2px;
+    background-color: white;
+    width: 900px;
+    margin: 80px auto 10px auto;
+    border-color: #303030;
+}
+
 table {
     border-collapse: collapse;
-    margin: 10px auto 10px auto;
-    width: 900px;
+    width: 100%;
+}
+
+.columnName:first-child {
+    border-top-left-radius: 20px;
+}
+
+.columnName:last-child {
+    border-top-right-radius: 20px;
+}
+
+tr:last-child .cell:first-child {
+    border-bottom-left-radius: 20px;
+}
+
+tr:last-child .cell:last-child {
+    border-bottom-right-radius: 20px;
 }
 
 .tableName {
@@ -11,17 +35,20 @@ table {
 }
 
 .columnName {
-    border: 1px solid black;
     height: 40px;
     padding: 5px;
-    background-color: #1A515D;
+    background-color: #303030;
+    color: white;
     text-align: center;
 }
 
 .cell {
-    height: 40px;
+    height: 30px;
     padding: 5px;
-    border: 1px solid black;
+}
+
+td:not(:last-child) {
+    border-right: 1px solid #d5d5d5;
 }
 
 .lightRow {
@@ -29,11 +56,11 @@ table {
 }
 
 .darkRow {
-    background-color: #e9fff1;
+    background-color: #e5e5e5;
 }
 
-.time, .sequence_number {
-    width: 150px;
+.time {
+    width: 160px;
 }
 
 .conference_id {
@@ -42,4 +69,8 @@ table {
 
 .focus {
     width: 650px;
+}
+
+a:link {
+    color: #5cacc6
 }

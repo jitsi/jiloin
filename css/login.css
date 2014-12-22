@@ -1,11 +1,17 @@
-#login {
+#login-form {
     width: 260px;
     margin: auto;
     height: 180px;
-    border: 1px solid rgb(213, 213, 213);
-    border-radius: 15px;
+    border: 1px solid #d5d5d5;
+    border-radius: 20px;
     margin-top: 50px;
     background-color: white;
+    padding: 2px;
+}
+
+#login {
+    border-radius: 20px;
+
 }
 
 #login button {
@@ -13,7 +19,7 @@
     height: 30px;
     border-radius: 20px;
     position: relative;
-    left: 131px;
+    left: 160px;
     margin-top: 15px;
 }
 
@@ -32,9 +38,10 @@
     border-radius: 15px;
     margin-left: 30px;
     margin-top: 14px;
-    text-align: center;
+    text-indent: 10px;
     width: 200px;
     height: 25px;
-    border: 1px solid rgb(213, 213, 213);
-    background-color: rgb(232, 232, 232);
+    border: 1px solid #c9c9c9;
+    background-color: #f0f0f0;
+    color: #858585;
 }
