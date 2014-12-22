@@ -1,16 +1,42 @@
-#queryField {
-    width: 900px;
+#query-field {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 30px;
     margin: auto;
     padding: 10px;
+    background-color: black;
 }
 
-#queryField input[type=text] {
+#query-input {
+    min-width: 700px;
+    width: 71%;
     height: 30px;
-    width: 740px;
+    left: 15%;
+    position: fixed;
 }
 
-#queryField button {
-    height: 36px;
-    width: 150px;
+#name-field {
+    width: 29%;
+}
+
+#id-field {
+    width: 9%;
+}
+
+#focus-field {
+    width: 49%;
+}
+
+#query-input input[type=text] {
+    height: 20px;
+    border-radius: 15px;
+}
+
+#query-field button {
+    height: 20px;
+    width: 9%;
+    border-radius: 10px;
     margin: auto;
 }

@@ -1,7 +1,11 @@
 <div>
-    <div id="queryField">
-        <input type="text" placeholder="select * from /.*/" ng-model="query">
-        <button ng-click="makeQuery()">Query</button>
+    <div id="query-field">
+        <span id="query-input">
+            <input type="text" placeholder="name" ng-model="name" id="name-field">
+            <input type="text" placeholder="id" ng-model="id" id="id-field">
+            <input type="text" placeholder="focus" ng-model="focus" id="focus-field">
+            <button class="button" ng-click="makeQuery()">Query</button>
+        </span>
     </div>
     <span  ng-repeat="data in response">
         <db-table data="data" queries="queries"></db-table>

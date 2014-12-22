@@ -2,3 +2,9 @@ body {
     background-color: rgb(232, 232, 232);
     margin: 0;
 }
+
+.button {
+    background: #00ADFF;
+    border: 1px solid #D4EDF9;
+    color: #87D2FF;
+}

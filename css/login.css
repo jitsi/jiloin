@@ -11,13 +11,10 @@
 #login button {
     width: 70px;
     height: 30px;
-    background: #00ADFF;
     border-radius: 20px;
-    border: 1px solid #D4EDF9;
     position: relative;
     left: 131px;
     margin-top: 15px;
-    color: #87D2FF;
 }
 
 #dbtitle {
