@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('jitsiLogs', ['ngRoute', 'ngSanitize']);
+var app = angular.module('jitsiLogs', ['ngRoute']);
 app.config(['$routeProvider', '$locationProvider',
     function($routeProvider, $locationProvider) {
         $routeProvider
