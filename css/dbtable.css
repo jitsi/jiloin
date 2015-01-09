@@ -2,14 +2,21 @@
     border-radius: 20px;
     padding: 2px;
     background-color: white;
-    width: 900px;
-    margin: 80px auto 10px auto;
+    width: 100%;
+    margin: 5px auto 10px auto;
     border-color: #303030;
 }
 
 table {
     border-collapse: collapse;
     width: 100%;
+}
+
+.table {
+    margin-top: 20px;
+    width: 900px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .columnName:first-child {
@@ -30,8 +37,9 @@ tr:last-child .cell:last-child {
 
 .tableName {
     border: none;
-    text-align: center;
+    text-align: left;
     font-weight: bold;
+    padding-left: 15px;
 }
 
 .columnName {

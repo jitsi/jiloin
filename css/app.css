@@ -8,3 +8,7 @@ body {
     border: none;
     color: white;
 }
+
+input:focus{
+    outline: 0;
+}

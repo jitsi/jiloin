@@ -1,10 +1,10 @@
-angular.module('jitsiLogs').directive('dbTable', ['$filter', function($filter) {
+angular.module('jitsiLogs').directive('dbTable', ['QueryBuilder', function(QueryBuilder) {
     return {
         priority: 0,
         templateUrl: '../partials/dbtable.html',
         restrict: 'E',
-        scope: {data: '=data',
-                queries: '=queries'
+        scope: {
+            data: '=data'
         },
         link: function($scope) {
             $scope.formatTime = function (cell) {
@@ -17,10 +17,11 @@ angular.module('jitsiLogs').directive('dbTable', ['$filter', function($filter) {
                     date.getSeconds();
             };
             $scope.isLink = function($index) {
-                return $scope.queries[$scope.data.columns[$index]];
+                return QueryBuilder.hasFieldsFor($scope.data.columns[$index]);
             };
             $scope.getLink = function(cell, $index) {
-                return '/' + $scope.data.columns[$index] + '/' + cell;
+                return '/' + $scope.data.columns[$index].replace('/', '%2F') +
+                    '/' + cell.replace('/', '%2F');
             }
         }
     }

@@ -1,13 +1,16 @@
 <div>
     <div id="query-field">
         <span id="query-input">
-            <input type="text" placeholder="name" ng-model="name" id="name-field">
-            <input type="text" placeholder="id" ng-model="id" id="id-field">
-            <input type="text" placeholder="focus" ng-model="focus" id="focus-field">
-            <button class="button" ng-click="makeQuery()">Query</button>
+            <input type="text" placeholder="Search for..." ng-model="searchFor" id="search-field">
+            <button class="button" ng-click="makeQuery()">Search</button>
+            <input type="radio" ng-model="fieldName" id="id" value="conference_id"><label for="id">conference_id</label>
+            <input type="radio" ng-model="fieldName" id="jid" value="room_jid"><label for="jid">room_jid</label>
+            <input type="radio" ng-model="fieldName" id="name" value="name"><label for="name">name</label>
         </span>
     </div>
+    <div class="padding"></div>
+    <span id="errorMessage" ng-show="errorMessage!=''">{{errorMessage}}</span>
     <span  ng-repeat="data in response">
-        <db-table data="data" queries="queries"></db-table>
+        <db-table data="data"></db-table>
     </span>
 </div>

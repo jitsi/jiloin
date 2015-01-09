@@ -12,12 +12,12 @@ angular.module('jitsiLogs').service('Database',['Config', '$q', '$location',
                 database: Config.database
             })
         },
-        query: function(query, callback) {
+        query: function(query, successCallback, errorCallback) {
             if(!database) {
                 $location.path('/');
                 return;
             }
-            $q.when(database.query(query)).then(callback);
+            $q.when(database.query(query)).then(successCallback, errorCallback);
         },
         getDatabases : function() {
             if(!database) {
