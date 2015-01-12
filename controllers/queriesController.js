@@ -5,13 +5,18 @@ angular.module('jitsiLogs').
         $scope.fieldName = 'conference_id';
         $scope.makeQuery = function() {
             Database.query($scope.query, function(response) {
+                if(response.length === 0) {
+                    $scope.message = "Sorry, we couldn't find anything...";
+                } else {
+                    $scope.message = '';
+                }
+                $scope.error = false;
                 $scope.response = response;
-                $scope.errorMessage = '';
-                console.log(response);
             }, function(response) {
                 $scope.response = {};
                 console.log(response);
-                $scope.errorMessage = response;
+                $scope.message = response.responseText;
+                $scope.error = true;
             });
         };
         $scope.search = function() {

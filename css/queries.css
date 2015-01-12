@@ -24,7 +24,7 @@
 
 .padding {
     width: 100%;
-    height: 45px;
+    height: 80px;
 }
 
 #query-input input[type=text] {
@@ -50,4 +50,14 @@
     width: 9%;
     border-radius: 10px;
     margin: auto;
+}
+
+#queries #message.error {
+    color: red;
+    border: 1px solid red;
+}
+
+#queries #message.info {
+    color: yellow;
+    border: 1px solid yellow;
 }
