@@ -1,22 +1,22 @@
 angular.module('jitsiLogs').
-    controller('queriesController', ['$scope', 'Database', '$routeParams', 'QueryBuilder',
-        function($scope, Database, $routeParams, QueryBuilder) {
-        $scope.query = 'select * from conference_created';
+    controller('queriesController', ['$scope', 'Database', '$routeParams',
+        'QueryBuilder', '$timeout', '$filter',
+        function($scope, Database, $routeParams, QueryBuilder, $timeout, $filter) {
+        $scope.query = QueryBuilder.getQueryForSeries('conference_created');
         $scope.fieldName = 'conference_id';
         $scope.makeQuery = function() {
             Database.query($scope.query, function(response) {
-                if(response.length === 0) {
-                    $scope.message = "Sorry, we couldn't find anything...";
-                } else {
-                    $scope.message = '';
-                }
                 $scope.error = false;
-                $scope.response = response;
+                $scope.response = $filter('queryFilter')(response);
             }, function(response) {
                 $scope.response = {};
                 console.log(response);
-                $scope.message = response.responseText;
+                $scope.searchFor = response.responseText;
                 $scope.error = true;
+                $timeout(function(){
+                    $scope.error = false;
+                    $scope.searchFor = '';
+                }, 3000);
             });
         };
         $scope.search = function() {

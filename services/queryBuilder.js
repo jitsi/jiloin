@@ -33,6 +33,12 @@ angular.module('jitsiLogs').service('QueryBuilder', [function() {
         room_jid: "conference_room"//,
         //display_name: "endpoint_display_name"
     };
+    var queries = {
+        conference_id_: "select " + schema.conference_created.join() + ",room_jid " +
+            "from conference_created " +
+            "inner join conference_room " +
+            "where conference_created.conference_id = conference_room.conference_id"
+    };
     return {
         getQueryForValue: function(fieldName, value) {
             if(fieldsIn[fieldName]) {
@@ -43,6 +49,9 @@ angular.module('jitsiLogs').service('QueryBuilder', [function() {
             return "";
         },
         getQueryForField: function(fieldName) {
+            if(queries[fieldName]) {
+                return queries[fieldName];
+            }
             if(fieldsIn[fieldName]) {
                 return "select * " +
                         "from " + fieldsIn[fieldName];
@@ -51,6 +60,10 @@ angular.module('jitsiLogs').service('QueryBuilder', [function() {
         },
         hasFieldsFor: function(field) {
             return fieldsIn[field] ? true : false;
+        },
+        getQueryForSeries: function(seriesName) {
+            return "select " + schema[seriesName].join() +
+                    " from " + seriesName;
         }
     }
 }]);

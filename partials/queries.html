@@ -1,7 +1,8 @@
 <div id="queries">
     <div id="query-field">
         <form id="query-input">
-            <input type="text" placeholder="Search for..." ng-model="searchFor" id="search-field">
+            <input type="text" placeholder="Search for..." ng-model="searchFor"
+                   ng-class="{error: error}" id="search-field">
             <button class="button" ng-click="search()">Search</button>
             <input type="radio" ng-model="fieldName" id="id" value="conference_id"><label for="id">conference_id</label>
             <input type="radio" ng-model="fieldName" id="jid" value="room_jid"><label for="jid">room_jid</label>
@@ -9,7 +10,7 @@
         </form>
     </div>
     <div class="padding"></div>
-    <div id="message" ng-show="message!=''" ng-class="error ? 'error' : 'info'">{{message}}</div>
+    <div class="info" ng-if="response.length === 0">No results were found</div>
     <span  ng-repeat="data in response">
         <db-table data="data"></db-table>
     </span>
