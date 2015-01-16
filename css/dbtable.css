@@ -93,3 +93,8 @@ ul.pagination li {
     position: relative;
 }
 
+ul.pagination {
+    width: 460px;
+    margin: auto;
+}
+

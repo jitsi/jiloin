@@ -27,7 +27,9 @@ angular.module('jitsiLogs').service('QueryBuilder', [function() {
         "transport_channel_removed", "transport_connected", "transport_created",
         "transport_state_changed"];
     var fieldsIn = {
-        conference_id: "conference_created, conference_room, endpoint_created, conference_expired",
+        conference_id: "conference_created, conference_room, endpoint_created, " +
+            "conference_expired, channel_created, channel_expired, content_created, " +
+            "content_expired, peer_connection_stats",
         endpoint_id: "endpoint_created, peer_connection_stats, channel_created", //add endpoint_display_name when integrated with jicofo
         //focus: "conference_created",
         room_jid: "conference_room"//,

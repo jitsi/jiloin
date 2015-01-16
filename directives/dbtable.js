@@ -9,12 +9,15 @@ angular.module('jitsiLogs').directive('dbTable', ['QueryBuilder', function(Query
         link: function($scope) {
             $scope.formatTime = function (cell) {
                 var date = new Date(cell);
+                function pad(number) {
+                    return number < 10 ? "0" + number : number;
+                }
                 return date.getFullYear() + "-" +
                     date.getMonth() + "-" +
                     date.getDate() + " " +
-                    date.getHours() + ":" +
-                    date.getMinutes() + ":" +
-                    date.getSeconds();
+                    pad(date.getHours()) + ":" +
+                    pad(date.getMinutes()) + ":" +
+                    pad(date.getSeconds());
             };
             $scope.isLink = function($index) {
                 return QueryBuilder.hasFieldsFor($scope.data.columns[$index]);
