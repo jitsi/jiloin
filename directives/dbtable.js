@@ -13,7 +13,7 @@ angular.module('jitsiLogs').directive('dbTable', ['QueryBuilder', function(Query
                     return number < 10 ? "0" + number : number;
                 }
                 return date.getFullYear() + "-" +
-                    date.getMonth() + "-" +
+                    (date.getMonth()  + 1) + "-" +
                     date.getDate() + " " +
                     pad(date.getHours()) + ":" +
                     pad(date.getMinutes()) + ":" +

@@ -27,9 +27,9 @@ angular.module('jitsiLogs').service('QueryBuilder', [function() {
         "transport_channel_removed", "transport_connected", "transport_created",
         "transport_state_changed"];
     var fieldsIn = {
-        conference_id: "conference_created, conference_room, endpoint_created, " +
+        conference_id: "endpoint_created, conference_created, conference_room, " +
             "conference_expired, channel_created, channel_expired, content_created, " +
-            "content_expired, peer_connection_stats",
+            "content_expired",
         endpoint_id: "endpoint_created, peer_connection_stats, channel_created", //add endpoint_display_name when integrated with jicofo
         //focus: "conference_created",
         room_jid: "conference_room"//,
@@ -46,7 +46,7 @@ angular.module('jitsiLogs').service('QueryBuilder', [function() {
             if(fieldsIn[fieldName]) {
                 return "select *" +
                         " from " + fieldsIn[fieldName] +
-                        " where " + fieldName + "=" + "'" + value + "'";
+                        " where " + fieldName + "=~" + "/.*" + (value || '') + ".*/";
             }
             return "";
         },

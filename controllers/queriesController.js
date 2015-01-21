@@ -1,13 +1,20 @@
 angular.module('jitsiLogs').
     controller('queriesController', ['$scope', 'Database', '$routeParams',
-        'QueryBuilder', '$timeout', '$filter',
-        function($scope, Database, $routeParams, QueryBuilder, $timeout, $filter) {
-        $scope.query = QueryBuilder.getQueryForSeries('conference_created');
+        'QueryBuilder', '$timeout', '$filter', 'Charts',
+        function($scope, Database, $routeParams, QueryBuilder, $timeout, $filter, Charts) {
+        $scope.query = "select * from conference_created, conference_room";
         $scope.fieldName = 'conference_id';
+        $scope.filter = 'conference_id';
+        //$scope.options = Charts.getOptions();
+
         $scope.makeQuery = function() {
             Database.query($scope.query, function(response) {
                 $scope.error = false;
-                $scope.response = $filter('queryFilter')(response);
+                $scope.response = response;
+                if($scope.filter) {
+                    $scope.response = $filter('queryFilter')(response, $scope.filter);
+                }
+                $scope.charts = Charts.getChartData(response);
             }, function(response) {
                 $scope.response = {};
                 console.log(response);
@@ -19,14 +26,15 @@ angular.module('jitsiLogs').
                 }, 3000);
             });
         };
+
         $scope.search = function() {
-            if($scope.searchFor) {
-                $scope.query = QueryBuilder.getQueryForValue($scope.fieldName, $scope.searchFor);
-                $scope.makeQuery();
-            }
+            $scope.filter = '';
+            $scope.query = QueryBuilder.getQueryForValue('room_jid', $scope.searchFor);
+            $scope.makeQuery();
         };
         if($routeParams.fieldName && $routeParams.fieldValue) {
             $scope.query = QueryBuilder.getQueryForValue($routeParams.fieldName, $routeParams.fieldValue);
+            $scope.filter = '';
         }
         $scope.makeQuery();
     }]);
