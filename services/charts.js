@@ -70,14 +70,14 @@ angular.module('jitsiLogs').service('Charts', [function() {
                 if(statsWanted.hasOwnProperty(field)) {
                     for (var stat = 0; stat < statsWanted[field].length; stat++) {
                         var currentStat = statsWanted[field][stat];
-                        if(!charts[field + currentStat]) {
-                            charts[field + currentStat] = {chart: []};
-                            charts[field + currentStat].options = angular.copy(defaultOptions);
-                            charts[field + currentStat].options.series[0].y = currentStat;
-                            charts[field + currentStat].options.series[0].label = currentStat;
-                        }
-                        var currentValue = {};
                         if(stats.stats[field][statsWanted[field][stat]]) {
+                            if(!charts[field + currentStat]) {
+                                charts[field + currentStat] = {chart: []};
+                                charts[field + currentStat].options = angular.copy(defaultOptions);
+                                charts[field + currentStat].options.series[0].y = currentStat;
+                                charts[field + currentStat].options.series[0].label = field + " " + currentStat;
+                            }
+                            var currentValue = {};
                             currentValue.x = parseInt(stats.timestamps[j]);
                             currentValue[currentStat] = parseInt(stats.stats[field][statsWanted[field][stat]][j]);
                             charts[field + currentStat].chart.push(currentValue);
