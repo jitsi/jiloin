@@ -1,0 +1,9 @@
+<div class="drop-down">
+    <div class="title" ng-click="show=!show">
+        <div class="arrow">
+            <div ng-class="show ? 'arrow-down' : 'arrow-right'"></div>
+        </div>
+        <div class="setName">{{setName}}</div>
+    </div>
+    <ng-transclude ng-if="show"></ng-transclude>
+</div>
