@@ -1,6 +1,8 @@
 body {
     background-color: #e8e8e8;
     margin: 0;
+    font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+    color: #6E6E6E;
 }
 
 .button {
