@@ -63,12 +63,22 @@ td:not(:last-child) {
     background-color: white;
 }
 
+.lightRow:hover {
+    background-color: #CACACA;
+    cursor: pointer;
+}
+
 .darkRow {
     background-color: #e5e5e5;
 }
 
+.darkRow:hover {
+    background-color: #dadada;
+    cursor: pointer;
+}
+
 .time {
-    width: 160px;
+    min-width: 80px;
 }
 
 .conference_id {

@@ -26,6 +26,7 @@ angular.module('jitsiLogs').service('QueryBuilder', [function() {
         "peer_connection_stats", "transport_channel_added",
         "transport_channel_removed", "transport_connected", "transport_created",
         "transport_state_changed"];
+
     var fieldsIn = {
         conference_id: "endpoint_created, conference_created, conference_room, " +
             "conference_expired, channel_created, channel_expired, content_created, " +

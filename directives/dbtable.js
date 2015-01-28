@@ -1,4 +1,5 @@
-angular.module('jitsiLogs').directive('dbTable', ['QueryBuilder', function(QueryBuilder) {
+angular.module('jitsiLogs').directive('dbTable', ['QueryBuilder', '$location',
+    function(QueryBuilder, $location) {
     return {
         priority: 0,
         templateUrl: '../partials/dbtable.html',
@@ -22,9 +23,17 @@ angular.module('jitsiLogs').directive('dbTable', ['QueryBuilder', function(Query
             $scope.isLink = function($index) {
                 return QueryBuilder.hasFieldsFor($scope.data.columns[$index]);
             };
-            $scope.getLink = function(cell, $index) {
-                return '/' + $scope.data.columns[$index].replace('/', '%2F') +
-                    '/' + cell.replace('/', '%2F');
+            $scope.goTo = function($index) {
+                $location.path($scope.getLink($index));
+            };
+            for(var i = 0; i < $scope.data.columns.length; i++) {
+                if($scope.isLink(i)) {
+                    $scope.linkColumn = i;
+                }
+            }
+            $scope.getLink = function($index) {
+                return '/' + $scope.data.columns[$scope.linkColumn].replace('/', '%2F') +
+                    '/' + $scope.data.points[$index][$scope.linkColumn].replace('/', '%2F');
             }
         }
     }

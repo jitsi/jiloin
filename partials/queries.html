@@ -1,7 +1,7 @@
 <div id="queries">
     <div id="query-field">
         <form id="query-input">
-            <input type="text" placeholder="Search by rom_jid" ng-model="searchFor"
+            <input type="text" placeholder="Search by room_jid" ng-model="searchFor"
                    ng-class="{error: error}" id="search-field">
             <button class="button" ng-click="search()">Search</button>
         </form>
@@ -15,8 +15,9 @@
         <span ng-repeat="chart in chartsSet">
             <linechart data="chart.chart"
                        options="chart.options"
-                       width="900"
-                       height="300">
+                       width="850"
+                       height="300"
+                       class="chart">
             </linechart>
         </span>
     </span>

@@ -99,16 +99,29 @@
     display: inline-block;
 }
 
+.drop-down {
+    background-color: white;
+    border-radius: 20px;
+    margin-top: 10px;
+    overflow: hidden;
+
+}
+
+
 .drop-down .title {
-    width: 900px;
+    width: 100%;
     height: 30px;
     line-height: 30px;
     background: white;
-    margin-top: 10px;
-    border-radius: 10px;
 }
+
 
 .setName {
     display: inline-block;
     cursor: pointer;
+}
+
+.chart {
+    background-color: white;
+    margin-left: 25px;
 }
