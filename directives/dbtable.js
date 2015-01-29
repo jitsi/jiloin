@@ -20,14 +20,12 @@ angular.module('jitsiLogs').directive('dbTable', ['QueryBuilder', '$location',
                     pad(date.getMinutes()) + ":" +
                     pad(date.getSeconds());
             };
-            $scope.isLink = function($index) {
-                return QueryBuilder.hasFieldsFor($scope.data.columns[$index]);
-            };
             $scope.goTo = function($index) {
                 $location.path($scope.getLink($index));
             };
+            var clickableField = QueryBuilder.getClickableField($scope.data.name);
             for(var i = 0; i < $scope.data.columns.length; i++) {
-                if($scope.isLink(i)) {
+                if($scope.data.columns[i] === clickableField) {
                     $scope.linkColumn = i;
                 }
             }

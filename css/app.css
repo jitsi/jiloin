@@ -14,3 +14,7 @@ body {
 input:focus{
     outline: 0;
 }
+
+a:link, a:visited, a:hover {
+    color: #0196bb;
+}

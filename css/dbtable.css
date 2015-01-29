@@ -89,10 +89,6 @@ td:not(:last-child) {
     width: 650px;
 }
 
-a:link {
-    color: #5cacc6
-}
-
 ul.pagination li {
     color: green;
     display: inline-block;

@@ -26,12 +26,19 @@ angular.module('jitsiLogs').service('QueryBuilder', [function() {
         "peer_connection_stats", "transport_channel_added",
         "transport_channel_removed", "transport_connected", "transport_created",
         "transport_state_changed"];
-
+    var clickableFields = {
+        "channel_created": 'endpoint_id', "channel_expired" : 'endpoint_id', "conference_created": 'conference_id',
+        "conference_expired": "conference_id", "conference_room": "conference_id", "content_created": "conference_id",
+        "content_expired": "conference_id", "endpoint_created": "endpoint_id", "focus_created": "room_jid",
+        "transport_channel_added": "hash_code", "transport_channel_removed": "hash_code",
+        "transport_connected": "hash_code", "transport_created": "hash_code",
+        "transport_state_changed":"hash_code"
+    };
     var fieldsIn = {
-        conference_id: "endpoint_created, conference_created, conference_room, " +
-            "conference_expired, channel_created, channel_expired, content_created, " +
+        conference_id: "endpoint_created,conference_created,conference_room," +
+            "conference_expired,channel_created,channel_expired,content_created," +
             "content_expired",
-        endpoint_id: "endpoint_created, peer_connection_stats, channel_created", //add endpoint_display_name when integrated with jicofo
+        endpoint_id: "endpoint_created,peer_connection_stats,channel_created", //add endpoint_display_name when integrated with jicofo
         //focus: "conference_created",
         room_jid: "conference_room"//,
         //display_name: "endpoint_display_name"
@@ -51,6 +58,9 @@ angular.module('jitsiLogs').service('QueryBuilder', [function() {
             }
             return "";
         },
+        getCorrectOrder: function(fieldName) {
+            return fieldsIn[fieldName];
+        },
         getQueryForField: function(fieldName) {
             if(queries[fieldName]) {
                 return queries[fieldName];
@@ -67,6 +77,9 @@ angular.module('jitsiLogs').service('QueryBuilder', [function() {
         getQueryForSeries: function(seriesName) {
             return "select " + schema[seriesName].join() +
                     " from " + seriesName;
+        },
+        getClickableField: function(tableName) {
+            return clickableFields[tableName];
         }
     }
 }]);

@@ -3,17 +3,13 @@ angular.module('jitsiLogs').
         'QueryBuilder', '$timeout', '$filter', 'Charts',
         function($scope, Database, $routeParams, QueryBuilder, $timeout, $filter, Charts) {
         $scope.query = "select * from conference_created, conference_room";
-        $scope.fieldName = 'conference_id';
-        $scope.filter = 'conference_id';
+        $scope.fieldName = 'conference_name';
         //$scope.options = Charts.getOptions();
 
         $scope.makeQuery = function() {
             Database.query($scope.query, function(response) {
                 $scope.error = false;
-                $scope.response = response;
-                if($scope.filter) {
-                    $scope.response = $filter('queryFilter')(response, $scope.filter);
-                }
+                $scope.response = $filter('queryFilter')(response, $scope.fieldName);
                 $scope.charts = Charts.getChartData(response);
             }, function(response) {
                 $scope.response = {};
@@ -34,7 +30,7 @@ angular.module('jitsiLogs').
         };
         if($routeParams.fieldName && $routeParams.fieldValue) {
             $scope.query = QueryBuilder.getQueryForValue($routeParams.fieldName, $routeParams.fieldValue);
-            $scope.filter = '';
+            $scope.fieldName = $routeParams.fieldName;
         }
         $scope.makeQuery();
     }]);
