@@ -2,6 +2,8 @@ angular.module('jitsiLogs').filter('queryFilter', ['QueryBuilder',
     function(QueryBuilder) {
     return function(response, filter) {
         switch(filter) {
+            //merge conference_created and conference_room series so we
+            //have the names of the conferences
             case 'conference_name':
                 for(var i = 0; i < response[1].columns.length; i++) {
                     if(response[1].columns[i] === "room_jid") {
@@ -15,6 +17,8 @@ angular.module('jitsiLogs').filter('queryFilter', ['QueryBuilder',
                 }
                 response.pop(1);
                 break;
+            //we get the results sorted alphabetically so we sort them
+            //in the order we want to show them
             case 'conference_id':
             case 'endpoint_id':
                 var order = QueryBuilder.getCorrectOrder('conference_id').split(',');

@@ -1,7 +1,7 @@
 angular.module('jitsiLogs').
     controller('queriesController', ['$scope', 'Database', '$routeParams',
-        'QueryBuilder', '$timeout', '$filter', 'Charts',
-        function($scope, Database, $routeParams, QueryBuilder, $timeout, $filter, Charts) {
+        'QueryBuilder', '$timeout', '$filter', 'Stats',
+        function($scope, Database, $routeParams, QueryBuilder, $timeout, $filter, Stats) {
         $scope.query = "select * from conference_created, conference_room";
         $scope.fieldName = 'conference_name';
         //$scope.options = Charts.getOptions();
@@ -9,8 +9,9 @@ angular.module('jitsiLogs').
         $scope.makeQuery = function() {
             Database.query($scope.query, function(response) {
                 $scope.error = false;
+                $scope.response = response;
                 $scope.response = $filter('queryFilter')(response, $scope.fieldName);
-                $scope.charts = Charts.getChartData(response);
+                $scope.data = Stats.getStatsData(response);
             }, function(response) {
                 $scope.response = {};
                 console.log(response);
