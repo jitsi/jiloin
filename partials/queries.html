@@ -11,6 +11,9 @@
     <span  ng-repeat="data in response">
         <db-table ng-if="data.name!=='peer_connection_stats'" data="data"></db-table>
     </span>
+    <span ng-repeat="info in data.info">
+        <db-table data="info"></db-table>
+    </span>
     <span ng-repeat="(setName, chartsSet) in data.charts" drop-down setname="setName">
         <span ng-repeat="chart in chartsSet">
             <linechart data="chart.chart"

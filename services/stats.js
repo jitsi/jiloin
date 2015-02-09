@@ -106,9 +106,15 @@ angular.module('jitsiLogs').service('Stats', [function() {
             charts[groupName][type].chart.push(currentValue);
         } else if(type.search('Address') !== -1) {
             if(!data.info[type]) {
-                data.info[type] = [];
+                data.info[type] = {
+                    columns: ['time', type],
+                    name: type,
+                    points: []};
             }
-            data.info[type].push(point[valueColumn])
+            var previous = data.info[type].points.slice(-1)[0];
+            if(!previous || point[valueColumn] !== previous[1]) {
+                data.info[type].points.push([point[0], point[valueColumn]]);
+            }
         }
     }
     function cleanUpStatsWanted() {
