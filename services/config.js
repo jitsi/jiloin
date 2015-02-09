@@ -3,7 +3,8 @@ angular.module('jitsiLogs').service('Config', [function() {
         host: "db.fo.jitsi.net",
         port: "443", // requires webserver config to proxy to the appropriate place...
         database:"test_database2",
-        ssl: true
+        ssl: true,
+        daysAgo: 2
     };
 
     return config;

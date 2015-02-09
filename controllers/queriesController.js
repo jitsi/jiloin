@@ -2,7 +2,7 @@ angular.module('jitsiLogs').
     controller('queriesController', ['$scope', 'Database', '$routeParams',
         'QueryBuilder', '$timeout', '$filter', 'Stats',
         function($scope, Database, $routeParams, QueryBuilder, $timeout, $filter, Stats) {
-        $scope.query = "select * from conference_created, conference_room";
+        $scope.query = QueryBuilder.getInitialQuery();
         $scope.fieldName = 'conference_name';
         //$scope.options = Charts.getOptions();
 

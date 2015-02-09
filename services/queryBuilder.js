@@ -1,4 +1,4 @@
-angular.module('jitsiLogs').service('QueryBuilder', [function() {
+angular.module('jitsiLogs').service('QueryBuilder', ['Config', function(Config) {
     var schema = {
         "channel_created": ["content_name", "conference_id", "endpoint_id",
             "lastn", "channel_id"],
@@ -50,11 +50,18 @@ angular.module('jitsiLogs').service('QueryBuilder', [function() {
             "where conference_created.conference_id = conference_room.conference_id"
     };
     return {
+        getInitialQuery: function() {
+            return "select * from conference_created, conference_room where " +
+                "time > now() - " + Config.daysAgo + "d";
+        },
         getQueryForValue: function(fieldName, value) {
             if(fieldsIn[fieldName]) {
+                var time = new Date();
+                time.setDate(time.getDate() - Config.daysAgo);
                 return "select *" +
                         " from " + fieldsIn[fieldName] +
-                        " where " + fieldName + "=~" + "/.*" + (value || '') + ".*/";
+                        " where " + fieldName + "=~" + "/.*" + (value || '') +
+                        ".*/" + " and time > now() - " + Config.daysAgo + 'd';
             }
             return "";
         },

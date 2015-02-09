@@ -10,7 +10,8 @@ angular.module('jitsiLogs').service('Database',['Config', '$q', '$location',
                 username: username,
                 password: password,
                 database: Config.database,
-                ssl: Config.ssl
+                ssl: Config.ssl,
+                daysAgo: 2 //time restriction for the database results
             })
         },
         query: function(query, successCallback, errorCallback) {
