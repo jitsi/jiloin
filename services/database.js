@@ -9,7 +9,8 @@ angular.module('jitsiLogs').service('Database',['Config', '$q', '$location',
                 port: Config.port,
                 username: username,
                 password: password,
-                database: Config.database
+                database: Config.database,
+                ssl: Config.ssl
             })
         },
         query: function(query, successCallback, errorCallback) {
