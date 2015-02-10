@@ -104,7 +104,7 @@ angular.module('jitsiLogs').service('Stats', [function() {
             //we assume time is always the first column
             currentValue.x = parseInt(point[0]);
             currentValue[type] = parseInt(point[valueColumn]);
-            if (currentValue[type] !== null) {
+            if (!isNaN(currentValue[type])) {
                 charts[groupName][type].chart.push(currentValue);
             }
         } else if(type.search('Address') !== -1) {
