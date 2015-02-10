@@ -6,7 +6,7 @@ angular.module('jitsiLogs').service('Stats', [function() {
                 type: 'linear',
                 labelFunction: function(value) {
                     var time = new Date(value);
-                    return time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds()  ;
+                    return time.getUTCHours() + ":" + time.getMinutes() + ":" + time.getSeconds()  ;
                 },
                 ticks: 10
             },
@@ -91,10 +91,10 @@ angular.module('jitsiLogs').service('Stats', [function() {
     function addPointToData(data, point, groupName, type, valueColumn) {
         var charts = data.charts;
         if(statsWanted[groupName] && statsWanted[groupName].indexOf(type) > -1) {
-            if(!charts[groupName]) {
+            if (!charts[groupName]) {
                 charts[groupName] = {};
             }
-            if(!charts[groupName][type]) {
+            if (!charts[groupName][type]) {
                 charts[groupName][type] = {chart: []};
                 charts[groupName][type].options = angular.copy(defaultOptions);
                 charts[groupName][type].options.series[0].y = type;
@@ -104,7 +104,9 @@ angular.module('jitsiLogs').service('Stats', [function() {
             //we assume time is always the first column
             currentValue.x = parseInt(point[0]);
             currentValue[type] = parseInt(point[valueColumn]);
-            charts[groupName][type].chart.push(currentValue);
+            if (currentValue[type] !== null) {
+                charts[groupName][type].chart.push(currentValue);
+            }
         } else if(type.search('Address') !== -1) {
             if(!data.info[type]) {
                 data.info[type] = {

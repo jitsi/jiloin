@@ -3,7 +3,7 @@ angular.module('jitsiLogs').filter('tableName', function() {
        if(tableName === 'endpoint_created') {
            return "PARTICIPANTS"
        } else {
-           return tableName.replace('_', ' ').toUpperCase();
+           return tableName.replace('_', ' ');
        }
    }
 });
