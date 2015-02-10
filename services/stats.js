@@ -5,7 +5,8 @@ angular.module('jitsiLogs').service('Stats', [function() {
                 key: 'x',
                 type: 'linear',
                 labelFunction: function(value) {
-                    return value%100000;
+                    var time = new Date(value);
+                    return time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds()  ;
                 },
                 ticks: 10
             },
@@ -57,7 +58,7 @@ angular.module('jitsiLogs').service('Stats', [function() {
             };
         var groupColumn, typeColumn, valueColumn;
         for(var i = 0; i < peerStats.columns.length; i++) {
-            if(peerStats.columns[i] === 'groupName') {
+            if(peerStats.columns[i] === 'group_name') {
                 groupColumn = i;
             } else if(peerStats.columns[i] === 'type') {
                 typeColumn = i;
