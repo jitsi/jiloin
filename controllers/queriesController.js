@@ -2,10 +2,6 @@ angular.module('jitsiLogs').
     controller('queriesController', ['$scope', 'Database', '$routeParams',
         'QueryBuilder', '$timeout', '$filter', 'Stats',
         function($scope, Database, $routeParams, QueryBuilder, $timeout, $filter, Stats) {
-        $scope.query = QueryBuilder.getInitialQuery();
-        $scope.fieldName = 'conference_name';
-        //$scope.options = Charts.getOptions();
-
         $scope.makeQuery = function() {
             Database.query($scope.query, function(response) {
                 $scope.error = false;
@@ -32,6 +28,9 @@ angular.module('jitsiLogs').
         if($routeParams.fieldName && $routeParams.fieldValue) {
             $scope.query = QueryBuilder.getQueryForValue($routeParams.fieldName, $routeParams.fieldValue);
             $scope.fieldName = $routeParams.fieldName;
+        } else {
+            $scope.query = QueryBuilder.getInitialQuery();
+            $scope.fieldName = 'conference_room';
         }
         $scope.makeQuery();
     }]);

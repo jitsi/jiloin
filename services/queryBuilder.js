@@ -5,7 +5,7 @@ angular.module('jitsiLogs').service('QueryBuilder', ['Config', function(Config) 
         "channel_expired": ["channel_id", "content_name", "conference_id"],
         "conference_created": ["conference_id", "focus"],
         "conference_expired": ["conference_id"],
-        "conference_room": ["conference_id", "room_jid"],
+        "conference_room": ["conference_id", "room_name", "focus"],
         "content_created": ["name", "conference_id"],
         "content_expired": ["name", "conference_id"],
         "endpoint_created": ["conference_id", "endpoint_id"],
@@ -51,7 +51,7 @@ angular.module('jitsiLogs').service('QueryBuilder', ['Config', function(Config) 
     };
     return {
         getInitialQuery: function() {
-            return "select * from conference_created, conference_room where " +
+            return "select * from conference_room where " +
                 "time > now() - " + Config.daysAgo + "d";
         },
         getQueryForValue: function(fieldName, value) {
@@ -65,8 +65,11 @@ angular.module('jitsiLogs').service('QueryBuilder', ['Config', function(Config) 
             }
             return "";
         },
-        getCorrectOrder: function(fieldName) {
+        getCorrectSeriesOrder: function(fieldName) {
             return fieldsIn[fieldName];
+        },
+        getCorrectColumnsOrder: function(seriesName) {
+            return schema[seriesName];
         },
         getQueryForField: function(fieldName) {
             if(queries[fieldName]) {

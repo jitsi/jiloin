@@ -3,19 +3,19 @@
     <div class="db-table">
         <table>
             <tr>
-                <td ng-if="data.columns[$index] !== 'sequence_number'"
-                    ng-repeat="column in data.columns"
-                    class="columnName">{{column}}</td>
+                <td
+                    ng-repeat="column in columnsOrder"
+                    class="columnName">{{data.columns[column]}}</td>
             </tr>
             <tr dir-paginate="row in data.points  | itemsPerPage: 10" pagination-id="data.name"
                 ng-class-even="'lightRow'"
                 ng-class-odd="'darkRow'"
                 ng-click="goTo($index)">
-                <td ng-if="data.columns[$index] !== 'sequence_number'"
-                    ng-repeat="cell in row"
-                    ng-class="[data.columns[$index], 'cell']">
+                <td
+                    ng-repeat="column in columnsOrder"
+                    ng-class="[data.columns[column], 'cell']">
                     <span>
-                        {{data.columns[$index] !== 'time' ? cell : formatTime(cell)}}
+                        {{data.columns[column] !== 'time' ? row[column] : formatTime(row[column])}}
                     </span>
                 </td>
             </tr>
