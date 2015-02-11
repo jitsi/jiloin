@@ -82,7 +82,8 @@ td:not(:last-child) {
 }
 
 .focus {
-    width: 650px;
+    min-width: 350px;
+    max-width: 500px;
 }
 
 .time {

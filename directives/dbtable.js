@@ -33,7 +33,12 @@ angular.module('jitsiLogs').directive('dbTable', ['QueryBuilder', '$location',
                 return '/' + $scope.data.columns[$scope.linkColumn].replace('/', '%2F') +
                     '/' + $scope.data.points[$index][$scope.linkColumn].replace('/', '%2F');
             };
-            var ordered = ['time'].concat(QueryBuilder.getCorrectColumnsOrder($scope.data.name));
+            var ordered = QueryBuilder.getCorrectColumnsOrder($scope.data.name);
+            if(!ordered) {
+                ordered = $scope.data.columns;
+            } else {
+                ordered = ['time'].concat(ordered);
+            }
             $scope.columnsOrder = [];
             for(i = 0; i < ordered.length; i++) {
                 for(var j = 0; j < $scope.data.columns.length; j++) {
