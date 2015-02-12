@@ -1,11 +1,4 @@
 <div id="queries">
-    <div id="query-field">
-        <form id="query-input">
-            <input type="text" placeholder="Search by room_jid" ng-model="searchFor"
-                   ng-class="{error: error}" id="search-field">
-            <button class="button" ng-click="search()">Search</button>
-        </form>
-    </div>
     <div class="padding"></div>
     <div class="info" ng-if="response.length === 0">No results were found</div>
     <span  ng-repeat="data in response">

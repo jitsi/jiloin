@@ -50,10 +50,6 @@ angular.module('jitsiLogs').service('QueryBuilder', ['Config', function(Config) 
             "where conference_created.conference_id = conference_room.conference_id"
     };
     return {
-        getInitialQuery: function() {
-            return "select * from conference_room where " +
-                "time > now() - " + Config.daysAgo + "d";
-        },
         getQueryForValue: function(fieldName, value) {
             if(fieldsIn[fieldName]) {
                 var time = new Date();
@@ -65,11 +61,10 @@ angular.module('jitsiLogs').service('QueryBuilder', ['Config', function(Config) 
             }
             return "";
         },
-        getCorrectSeriesOrder: function(fieldName) {
-            return fieldsIn[fieldName];
-        },
-        getCorrectColumnsOrder: function(seriesName) {
-            return schema[seriesName];
+        getQueryForSeries: function(seriesName) {
+            return "select * " +
+                "from " + seriesName +
+                " where time > now() -" + Config.daysAgo + 'd';;
         },
         getQueryForField: function(fieldName) {
             if(queries[fieldName]) {
@@ -77,16 +72,18 @@ angular.module('jitsiLogs').service('QueryBuilder', ['Config', function(Config) 
             }
             if(fieldsIn[fieldName]) {
                 return "select * " +
-                        "from " + fieldsIn[fieldName];
+                    "from " + fieldsIn[fieldName];
             }
             return "";
         },
+        getCorrectSeriesOrder: function(fieldName) {
+            return fieldsIn[fieldName];
+        },
+        getCorrectColumnsOrder: function(seriesName) {
+            return schema[seriesName];
+        },
         hasFieldsFor: function(field) {
             return fieldsIn[field] ? true : false;
-        },
-        getQueryForSeries: function(seriesName) {
-            return "select " + schema[seriesName].join() +
-                    " from " + seriesName;
         },
         getClickableField: function(tableName) {
             return clickableFields[tableName];

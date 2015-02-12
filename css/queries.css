@@ -102,7 +102,9 @@
 .drop-down {
     background-color: white;
     border-radius: 20px;
-    margin-top: 10px;
+    width: 900px;
+    margin: 10px auto 0 auto;
+    border: 1px solid white;
     overflow: hidden;
 
 }

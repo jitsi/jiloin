@@ -20,7 +20,7 @@ angular.module('jitsiLogs').filter('queryFilter', ['QueryBuilder',
             //in the order we want to show them
             case 'conference_id':
             case 'endpoint_id':
-                var order = QueryBuilder.getCorrectSeriesOrder('conference_id').split(',');
+                var order = QueryBuilder.getCorrectSeriesOrder(filter).split(',');
                 var sortedResponse = [];
                 var ordered = 0;
                 for(var i = 0; i < order.length; i++) {

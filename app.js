@@ -8,13 +8,17 @@ app.config(['$routeProvider', '$locationProvider',
                 templateUrl: '/partials/login.html',
                 controller: 'loginController'
             })
-            .when('/queries', {
-                templateUrl: '/partials/queries.html',
-                controller: 'queriesController'
+            .when('/conferences', {
+                templateUrl: '/partials/conferences.html',
+                controller: 'viewController'
             })
-            .when('/:fieldName/:fieldValue', {
-                templateUrl: '/partials/queries.html',
-                controller: 'queriesController'
+            .when('/endpoint_id/:endpoint_id', {
+                templateUrl: '/partials/endpoint.html',
+                controller: 'viewController'
+            })
+            .when('/conference_id/:conference_id', {
+                templateUrl: '/partials/conference.html',
+                controller: 'viewController'
             })
             .otherwise({
                 redirectTo: '/'

@@ -1,0 +1,7 @@
+<div id="query-field" ng-controller="queriesController">
+    <form id="query-input">
+        <input type="text" placeholder="Search by room_jid" ng-model="searchFor"
+               ng-class="{error: error}" id="search-field">
+        <button class="button" ng-click="search()">Search</button>
+    </form>
+</div>
