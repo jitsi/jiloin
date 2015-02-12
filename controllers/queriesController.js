@@ -1,9 +1,7 @@
 angular.module('jitsiLogs').controller('queriesController',
-    ['$scope', 'Database', '$routeParams', 'QueryBuilder',
-        function($scope, Database, $routeParams, QueryBuilder) {
+    ['$scope', '$location',
+        function($scope, $location) {
         $scope.search = function() {
-            $scope.filter = '';
-            $scope.query = QueryBuilder.getQueryForValue('room_jid', $scope.searchFor);
-            $scope.makeQuery();
+            $location.path('/room_jid/' + $scope.searchFor);
         };
     }]);

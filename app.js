@@ -20,6 +20,10 @@ app.config(['$routeProvider', '$locationProvider',
                 templateUrl: '/partials/conference.html',
                 controller: 'viewController'
             })
+            .when('/room_jid/:room_jid', {
+                templateUrl: '/partials/conference.html',
+                controller: 'viewController'
+            })
             .otherwise({
                 redirectTo: '/'
             });

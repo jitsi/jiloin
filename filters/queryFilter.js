@@ -4,7 +4,8 @@ angular.module('jitsiLogs').filter('queryFilter', ['QueryBuilder',
         switch(filter) {
             //merge conference_created and conference_room series so we
             //have the names of the conferences
-            case 'conference_room':
+            case 'conferences':
+            case 'room_jid':
                 for(var i = 0; i < response[0].columns.length; i++) {
                     if(response[0].columns[i] === "room_jid") {
                         response[0].columns[i] = "room_name";
