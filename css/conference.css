@@ -1,0 +1,34 @@
+#conference-info {
+    width: 900px;
+    margin: auto;
+}
+
+.info-key {
+    font-size: 20px;
+    font-weight: bold;
+    height: 40px;
+    padding: 5px;
+    background-color: #303030;
+    color: white;
+    text-align: center;
+}
+
+.info-value {
+    font-size: 20px;
+}
+
+tr:first-child .info-key {
+    border-top-left-radius: 20px;
+}
+
+tr:first-child .info-value {
+    border-top-right-radius: 20px;
+}
+
+tr:last-child .cell:first-child {
+    border-bottom-left-radius: 20px;
+}
+
+tr:last-child .cell:last-child {
+    border-bottom-right-radius: 20px;
+}

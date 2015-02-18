@@ -6,6 +6,7 @@
         <db-table ng-if="data.name!=='peer_connection_stats'" data="data"></db-table>
     </span>
 </div>
+<div id="loading" ng-if="loading">Loading...</div>
 <span ng-repeat="info in data.info">
         <db-table data="info"></db-table>
     </span>

@@ -1,5 +1,5 @@
-angular.module('jitsiLogs').directive('dbTable', ['QueryBuilder', '$location',
-    function(QueryBuilder, $location) {
+angular.module('jitsiLogs').directive('dbTable', ['QueryBuilder', '$location', '$filter',
+    function(QueryBuilder, $location, $filter) {
     return {
         priority: 0,
         templateUrl: '../partials/dbtable.html',
@@ -8,18 +8,7 @@ angular.module('jitsiLogs').directive('dbTable', ['QueryBuilder', '$location',
             data: '=data'
         },
         link: function($scope) {
-            $scope.formatTime = function (cell) {
-                var date = new Date(cell);
-                function pad(number) {
-                    return number < 10 ? "0" + number : number;
-                }
-                return date.getFullYear() + "-" +
-                    (pad(date.getMonth()  + 1)) + "-" +
-                    pad(date.getDate()) + " " +
-                    pad(date.getHours()) + ":" +
-                    pad(date.getMinutes()) + ":" +
-                    pad(date.getSeconds());
-            };
+
             $scope.goTo = function($index) {
                 $location.path($scope.getLink($index));
             };
@@ -36,8 +25,6 @@ angular.module('jitsiLogs').directive('dbTable', ['QueryBuilder', '$location',
             var ordered = QueryBuilder.getCorrectColumnsOrder($scope.data.name);
             if(!ordered) {
                 ordered = $scope.data.columns;
-            } else {
-                ordered = ['time'].concat(ordered);
             }
             $scope.columnsOrder = [];
             for(i = 0; i < ordered.length; i++) {

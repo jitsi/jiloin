@@ -62,7 +62,7 @@
     color: white;
 }
 
-#queries .info {
+#queries .info, #loading {
     width: 460px;
     margin: auto;
     color: #8B8B8B;

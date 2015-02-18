@@ -1,8 +1,20 @@
 <query-field></query-field>
 <div id="conferences">
     <div class="padding"></div>
-    <div class="info" ng-if="response.length === 0">No results were found</div>
-    <span  ng-repeat="data in response">
+    <div id="conference-info" class="table">
+        <table class="db-table">
+            <tr ng-repeat="(key, value) in response"
+                ng-class-even="'lightRow'"
+                ng-class-odd="'darkRow'">
+                <td class="info-key">{{key}}</td>
+                <td ng-if="key==='room_name'" class="info-value">{{value}}</td>
+                <td ng-if="key!=='room_name'" class="info-value">{{value |time}}</td>
+            </tr>
+        </table>
+    </div>
+    <div id="loading" ng-if="loading">Loading ...</div>
+    <div class="info" ng-if="info.length === 0">No results were found</div>
+    <span  ng-repeat="data in info">
         <db-table ng-if="data.name!=='peer_connection_stats'" data="data"></db-table>
     </span>
 </div>

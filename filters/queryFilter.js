@@ -20,7 +20,29 @@ angular.module('jitsiLogs').filter('queryFilter', ['QueryBuilder',
             //we get the results sorted alphabetically so we sort them
             //in the order we want to show them
             case 'conference_id':
-            case 'endpoint_id':
+                var data = {};
+                for(var i = 0; i < response.length; i++) {
+                    if(response[i].name === 'conference_room') {
+                        for(var j = 0; j < response[i].columns.length; j++) {
+                            if(response[i].columns[j] === 'room_jid') {
+                                var jid = response[i].points[0][j];
+                                data.room_name = jid.substr(0, jid.indexOf('@'));
+                                break;
+                            }
+                        }
+                    } else if(response[i].name === 'conference_created') {
+                        data.created = response[i].points[0][0];
+                    } else if(response[i].name === 'conference_expired') {
+                        if(response[i].points.length > 0) {
+                            data.expired = response[i].points[0][0];
+                        } else {
+                            data.expired = 'Ongoing';
+                        }
+                    }
+                }
+                response = data;
+                break;
+            default:
                 var order = QueryBuilder.getCorrectSeriesOrder(filter).split(',');
                 var sortedResponse = [];
                 var ordered = 0;
