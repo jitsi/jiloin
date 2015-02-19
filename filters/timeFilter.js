@@ -4,11 +4,11 @@ angular.module('jitsiLogs').filter('time', [function() {
     }
     return function(time) {
         var date = new Date(time);
-        return date.getFullYear() + "-" +
-            (pad(date.getMonth()  + 1)) + "-" +
-            pad(date.getDate()) + " " +
-            pad(date.getHours()) + ":" +
-            pad(date.getMinutes()) + ":" +
-            pad(date.getSeconds());
+        return pad(date.getHours()) + ":" +
+                pad(date.getMinutes()) + ":" +
+                pad(date.getSeconds()) +
+                date.getFullYear() + "-" +
+                (pad(date.getMonth()  + 1)) + "-" +
+                pad(date.getDate()) + " ";
     }
 }]);
