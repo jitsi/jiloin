@@ -56,26 +56,17 @@ angular.module('jitsiLogs').service('Stats', [function() {
             charts: {},
             info: {}
             };
-        var groupColumn, typeColumn, valueColumn;
+        var valueColumn;
         for(var i = 0; i < peerStats.columns.length; i++) {
-            if(peerStats.columns[i] === 'group_name') {
-                groupColumn = i;
-            } else if(peerStats.columns[i] === 'type') {
-                typeColumn = i;
-            } else if(peerStats.columns[i] === 'value') {
+            if(peerStats.columns[i] === 'value') {
                 valueColumn = i;
             }
         }
-        if(!(groupColumn && typeColumn && valueColumn)) {
+        if(!valueColumn) {
             return data;
         }
         for(i = peerStats.points.length - 1; i >= 0; i--) {
-            var groupName = peerStats.points[i][groupColumn];
-            var type = peerStats.points[i][typeColumn];
-            if(groupName.search('ssrc') !== -1) {
-                addSsrcField(groupName);
-            }
-            addPointToData(data, peerStats.points[i], groupName, type, valueColumn)
+            addPointToData(data, peerStats.points[i], valueColumn);
         }
         return data;
     }
@@ -88,37 +79,53 @@ angular.module('jitsiLogs').service('Stats', [function() {
             }
         }
     }
-    function addPointToData(data, point, groupName, type, valueColumn) {
+    function addPointToData(data, point, valueColumn) {
+        var groupColumn = 0;
+        if(point.length !== 5) {
+            return data;
+        }
         var charts = data.charts;
-        if(statsWanted[groupName] && statsWanted[groupName].indexOf(type) > -1) {
-            if (!charts[groupName]) {
-                charts[groupName] = {};
-            }
-            if (!charts[groupName][type]) {
-                charts[groupName][type] = {chart: []};
-                charts[groupName][type].options = angular.copy(defaultOptions);
-                charts[groupName][type].options.series[0].y = type;
-                charts[groupName][type].options.series[0].label = type;
-            }
-            var currentValue = {};
-            //we assume time is always the first column
-            currentValue.x = parseInt(point[0]);
-            currentValue[type] = parseInt(point[valueColumn]);
-            if (!isNaN(currentValue[type])) {
-                charts[groupName][type].chart.push(currentValue);
-            }
-        } else if(type.search('Address') !== -1) {
-            if(!data.info[type]) {
-                data.info[type] = {
-                    columns: ['time', type],
-                    name: type,
-                    points: []};
-            }
-            var previous = data.info[type].points.slice(-1)[0];
-            if(!previous || point[valueColumn] !== previous[1]) {
-                data.info[type].points.push([point[0], point[valueColumn]]);
+        var value = JSON.parse(point[valueColumn]);
+        for(var i = 0; i < value.length; i++) {
+            for (var type in value[i][2]) {
+                if (value[i][2].hasOwnProperty(type)) {
+                    var groupName = value[i][groupColumn];
+                    if (groupName.search('ssrc') !== -1 && !statsWanted[groupName]) {
+                        addSsrcField(groupName);
+                    }
+                    if (statsWanted[groupName] && statsWanted[groupName].indexOf(type) > -1) {
+                        if (!charts[groupName]) {
+                            charts[groupName] = {};
+                        }
+                        if (!charts[groupName][type]) {
+                            charts[groupName][type] = {chart: []};
+                            charts[groupName][type].options = angular.copy(defaultOptions);
+                            charts[groupName][type].options.series[0].y = type;
+                            charts[groupName][type].options.series[0].label = type;
+                        }
+                        var currentValue = {};
+                        //we assume time is always the first column
+                        currentValue.x = parseInt(point[0]);
+                        currentValue[type] = parseInt(value[i][2][type]);
+                        if (!isNaN(currentValue[type])) {
+                            charts[groupName][type].chart.push(currentValue);
+                        }
+                    } else if (type.search('Address') !== -1) {
+                        if (!data.info[type]) {
+                            data.info[type] = {
+                                columns: ['time', type],
+                                name: type,
+                                points: []};
+                        }
+                        var previous = data.info[type].points.slice(-1)[0];
+                        if (!previous || value[i][type] !== previous[1]) {
+                            data.info[type].points.push([point[0], value[i][type]]);
+                        }
+                    }
+                }
             }
         }
+
     }
     function cleanUpStatsWanted() {
         for(var item in statsWanted) {

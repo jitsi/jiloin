@@ -6,9 +6,9 @@ angular.module('jitsiLogs').filter('time', [function() {
         var date = new Date(time);
         return pad(date.getHours()) + ":" +
                 pad(date.getMinutes()) + ":" +
-                pad(date.getSeconds()) +
-                date.getFullYear() + "-" +
+                pad(date.getSeconds()) + " " +
+                pad(date.getDate()) + "-" +
                 (pad(date.getMonth()  + 1)) + "-" +
-                pad(date.getDate()) + " ";
+                date.getFullYear() + " ";
     }
 }]);
