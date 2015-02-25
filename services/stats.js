@@ -44,6 +44,8 @@ angular.module('jitsiLogs').service('Stats', [function() {
       'googRetransmitBitrate', 'googAvailableReceiveBandwidth',
       'googTargetEncBitrate', 'googBucketDelay', 'googTransmitBitrate']
     };
+    var singleStatsWanted = {"Conn-audio-1-0": ["googLocalAddress", "googRemoteAddress", "googLocalCandidateType",
+        "googTransportType", "googRemoteCandidateType"]};
     var ssrcSendStats = ["audioInputLevel", "packetsLost", "googRtt",
         "googEchoCancellationReturnLossEnhancement", "googJitterReceived",
     "packetsSent", "bytesSent", "googEchoCancellationEchoDelayStdDev"];
@@ -110,16 +112,22 @@ angular.module('jitsiLogs').service('Stats', [function() {
                         if (!isNaN(currentValue[type])) {
                             charts[groupName][type].chart.push(currentValue);
                         }
-                    } else if (type.search('Address') !== -1) {
-                        if (!data.info[type]) {
-                            data.info[type] = {
-                                columns: ['time', type],
-                                name: type,
-                                points: []};
-                        }
-                        var previous = data.info[type].points.slice(-1)[0];
-                        if (!previous || value[i][2][type] !== previous[1]) {
-                            data.info[type].points.push([point[0], value[i][2][type]]);
+                    } else {
+                        if (singleStatsWanted[groupName]) {
+                            for(var j = 0; j < singleStatsWanted[groupName].length; j++) {
+                                if (type === singleStatsWanted[groupName][j]) {
+                                    if (!data.info[type]) {
+                                        data.info[type] = {
+                                            columns: ['time', type],
+                                            name: type,
+                                            points: []};
+                                    }
+                                    var previous = data.info[type].points.slice(-1)[0];
+                                    if (!previous || value[i][2][type] !== previous[1]) {
+                                        data.info[type].points.push([point[0], value[i][2][type]]);
+                                    }
+                                }
+                            }
                         }
                     }
                 }
