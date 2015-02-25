@@ -34,11 +34,11 @@ angular.module('jitsiLogs').service('QueryBuilder', ['Config', function(Config) 
         "endpoint_id", "focus_created": "room_jid", "transport_channel_added":
         "hash_code", "transport_channel_removed": "hash_code",
         "transport_connected": "hash_code", "transport_created": "hash_code",
-        "transport_state_changed":"hash_code"
+        "transport_state_changed":"hash_code", "participants": "endpoint_id"
     };
     var fieldsIn = {
         conference_id: "conference_created,conference_room,conference_expired", //channel_expired,
-        conference_info: "endpoint_created,channel_created,content_created,content_expired",
+        conference_info: "participants,channel_created,content_created,content_expired",
         endpoint_id: "endpoint_created,channel_created,endpoint_display_name",
         //focus: "conference_created",
         room_jid: "conference_room"//,

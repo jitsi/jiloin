@@ -43,6 +43,13 @@ angular.module('jitsiLogs').filter('query', ['QueryBuilder', '$filter',
                 }
                 response = data;
                 break;
+
+            case "conference_info":
+                for(var i = 0; i < response.length; i++) {
+                    if(response[i].name === "endpoint_created") {
+                        response[i].name = "participants";
+                    }
+                }
             default:
                 var order = QueryBuilder.getCorrectSeriesOrder(filter).split(',');
                 var sortedResponse = [];

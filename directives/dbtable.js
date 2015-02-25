@@ -24,7 +24,7 @@ angular.module('jitsiLogs').directive('dbTable', ['QueryBuilder', '$location', '
             };
             var ordered = QueryBuilder.getCorrectColumnsOrder($scope.data.name);
             if(!ordered) {
-                ordered = $scope.data.columns;
+                ordered = angular.copy($scope.data.columns);
                 ordered.splice(0, 1);
             }
             $scope.columnsOrder = [];
@@ -36,7 +36,6 @@ angular.module('jitsiLogs').directive('dbTable', ['QueryBuilder', '$location', '
                     }
                 }
             }
-
         }
     }
 }]);
