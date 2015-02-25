@@ -13,7 +13,7 @@ angular.module('jitsiLogs').
     $scope.makeQuery = function() {
         Database.query($scope.query, function(response) {
             $scope.error = false;
-            $scope.response = $filter('queryFilter')(response, $scope.fieldName);
+            $scope.response = $filter('query')(response, $scope.fieldName);
         }, function(response) {
             $scope.response = {};
             console.log(response);
@@ -49,7 +49,7 @@ angular.module('jitsiLogs').
                 "from endpoint_created,channel_created,content_created,content_expired" +
                 " where conference_id ='" + $routeParams[$scope.fieldName] + "'";
             $scope.loadAdditionalData(dataQuery,function(response) {
-                $scope.info = $filter('queryFilter')(response, 'conference_info');
+                $scope.info = $filter('query')(response, 'conference_info');
             }, function(response) {
                 console.log(response);
             });

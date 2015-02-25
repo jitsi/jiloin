@@ -9,6 +9,6 @@ angular.module('jitsiLogs').filter('time', [function() {
                 pad(date.getSeconds()) + " " +
                 pad(date.getDate()) + "-" +
                 (pad(date.getMonth()  + 1)) + "-" +
-                date.getFullYear() + " ";
+                date.getFullYear();
     }
 }]);

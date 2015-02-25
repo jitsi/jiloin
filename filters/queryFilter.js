@@ -1,5 +1,5 @@
-angular.module('jitsiLogs').filter('queryFilter', ['QueryBuilder',
-    function(QueryBuilder) {
+angular.module('jitsiLogs').filter('query', ['QueryBuilder', '$filter',
+    function(QueryBuilder, $filter) {
     return function(response, filter) {
         switch(filter) {
             //merge conference_created and conference_room series so we
@@ -31,14 +31,15 @@ angular.module('jitsiLogs').filter('queryFilter', ['QueryBuilder',
                             }
                         }
                     } else if(response[i].name === 'conference_created') {
-                        data.created = response[i].points[0][0];
+                        data.created = $filter('time')(response[i].points[0][0]);
                     } else if(response[i].name === 'conference_expired') {
                         if(response[i].points.length > 0) {
-                            data.expired = response[i].points[0][0];
-                        } else {
-                            data.expired = 'Ongoing';
+                            data.expired = $filter('time')(response[i].points[0][0]);
                         }
                     }
+                }
+                if(!data.expired) {
+                    data.expired = 'Ongoing';
                 }
                 response = data;
                 break;
