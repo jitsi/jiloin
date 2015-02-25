@@ -118,8 +118,8 @@ angular.module('jitsiLogs').service('Stats', [function() {
                                 points: []};
                         }
                         var previous = data.info[type].points.slice(-1)[0];
-                        if (!previous || value[i][type] !== previous[1]) {
-                            data.info[type].points.push([point[0], value[i][type]]);
+                        if (!previous || value[i][2][type] !== previous[1]) {
+                            data.info[type].points.push([point[0], value[i][2][type]]);
                         }
                     }
                 }

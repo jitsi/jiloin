@@ -25,6 +25,7 @@ angular.module('jitsiLogs').directive('dbTable', ['QueryBuilder', '$location', '
             var ordered = QueryBuilder.getCorrectColumnsOrder($scope.data.name);
             if(!ordered) {
                 ordered = $scope.data.columns;
+                ordered.splice(0, 1);
             }
             $scope.columnsOrder = [];
             for(i = 0; i < ordered.length; i++) {

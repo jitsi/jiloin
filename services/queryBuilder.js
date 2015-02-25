@@ -39,7 +39,7 @@ angular.module('jitsiLogs').service('QueryBuilder', ['Config', function(Config) 
     var fieldsIn = {
         conference_id: "conference_created,conference_room,conference_expired", //channel_expired,
         conference_info: "endpoint_created,channel_created,content_created,content_expired",
-        endpoint_id: "endpoint_created,channel_created", //add endpoint_display_name when integrated with jicofo
+        endpoint_id: "endpoint_created,channel_created,endpoint_display_name",
         //focus: "conference_created",
         room_jid: "conference_room"//,
         //display_name: "endpoint_display_name"
