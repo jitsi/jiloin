@@ -46,6 +46,7 @@ angular.module('jitsiLogs').service('Stats', [function() {
     };
     var singleStatsWanted = {"Conn-audio-1-0": ["googLocalAddress", "googRemoteAddress", "googLocalCandidateType",
         "googTransportType", "googRemoteCandidateType"]};
+    var boolStatsWanted = {"Conn-audio-1-0": ["googWritable", "googReadable", "googActiveConnection"] };
     var ssrcSendStats = ["audioInputLevel", "packetsLost", "googRtt",
         "googEchoCancellationReturnLossEnhancement", "googJitterReceived",
     "packetsSent", "bytesSent", "googEchoCancellationEchoDelayStdDev"];
@@ -53,7 +54,7 @@ angular.module('jitsiLogs').service('Stats', [function() {
         "packetsReceived" ,"googJitterReceived", "googPreferredJitterBufferMs",
         "googDecodingCNG", "audioOutputLevel", "bytesReceived",
         "googJitterBufferMs"];
-    function getChartsData(peerStats) {
+    function getStatsData(peerStats) {
         var data = {
             charts: {},
             info: {}
@@ -96,44 +97,54 @@ angular.module('jitsiLogs').service('Stats', [function() {
                         addSsrcField(groupName);
                     }
                     if (statsWanted[groupName] && statsWanted[groupName].indexOf(type) > -1) {
-                        if (!charts[groupName]) {
-                            charts[groupName] = {};
-                        }
-                        if (!charts[groupName][type]) {
-                            charts[groupName][type] = {chart: []};
-                            charts[groupName][type].options = angular.copy(defaultOptions);
-                            charts[groupName][type].options.series[0].y = type;
-                            charts[groupName][type].options.series[0].label = type;
-                        }
-                        var currentValue = {};
-                        //we assume time is always the first column
-                        currentValue.x = parseInt(point[0]);
-                        currentValue[type] = parseInt(value[i][2][type]);
-                        if (!isNaN(currentValue[type])) {
-                            charts[groupName][type].chart.push(currentValue);
-                        }
-                    } else {
-                        if (singleStatsWanted[groupName]) {
-                            for(var j = 0; j < singleStatsWanted[groupName].length; j++) {
-                                if (type === singleStatsWanted[groupName][j]) {
-                                    if (!data.info[type]) {
-                                        data.info[type] = {
-                                            columns: ['time', type],
-                                            name: type,
-                                            points: []};
-                                    }
-                                    var previous = data.info[type].points.slice(-1)[0];
-                                    if (!previous || value[i][2][type] !== previous[1]) {
-                                        data.info[type].points.push([point[0], value[i][2][type]]);
-                                    }
-                                }
-                            }
-                        }
+                        addPointToChart(charts, groupName, type, point, value[i][2]);
+                    } else if (singleStatsWanted[groupName]) {
+                        addSingleStatValue(data, groupName, type, point, value[i][2]);
+                    } else if (boolStatsWanted[groupName]) {
+                        addPointToChart(charts, groupName, type, point, value[i][2], true);
                     }
                 }
             }
         }
 
+    }
+    function addPointToChart(charts, groupName, type, point, value, isBoolean) {
+        if (!charts[groupName]) {
+            charts[groupName] = {};
+        }
+        if (!charts[groupName][type]) {
+            charts[groupName][type] = {chart: []};
+            charts[groupName][type].options = angular.copy(defaultOptions);
+            charts[groupName][type].options.series[0].y = type;
+            charts[groupName][type].options.series[0].label = type;
+        }
+        var currentValue = {};
+        //we assume time is always the first column
+        currentValue.x = parseInt(point[0]);
+        if(isBoolean) {
+            currentValue[type] = value[type] === "true" ? 0 : 1;
+        } else {
+            currentValue[type] = parseInt(value[type]);
+        }
+        if (!isNaN(currentValue[type])) {
+            charts[groupName][type].chart.push(currentValue);
+        }
+    }
+    function addSingleStatValue(data, groupName, type, point, value) {
+        for(var j = 0; j < singleStatsWanted[groupName].length; j++) {
+            if (type === singleStatsWanted[groupName][j]) {
+                if (!data.info[type]) {
+                    data.info[type] = {
+                        columns: ['time', type],
+                        name: type,
+                        points: []};
+                }
+                var previous = data.info[type].points.slice(-1)[0];
+                if (!previous || value[type] !== previous[1]) {
+                    data.info[type].points.push([point[0], value[type]]);
+                }
+            }
+        }
     }
     function cleanUpStatsWanted() {
         for(var item in statsWanted) {
@@ -158,7 +169,7 @@ angular.module('jitsiLogs').service('Stats', [function() {
             if(statsIndex === response.length) {
                 return;
             }
-            var data = getChartsData(response[statsIndex]);
+            var data = getStatsData(response[statsIndex]);
 
             cleanUpStatsWanted();
             return data;

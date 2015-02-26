@@ -1,0 +1,8 @@
+<query-field></query-field>
+<div id="conferences">
+    <div class="padding"></div>
+    <div class="info" ng-if="response.length === 0">No results were found</div>
+    <span  ng-repeat="data in response">
+        <db-table ng-if="data.name!=='peer_connection_stats'" data="data"></db-table>
+    </span>
+</div>

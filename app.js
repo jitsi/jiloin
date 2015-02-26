@@ -21,7 +21,7 @@ app.config(['$routeProvider', '$locationProvider',
                 controller: 'viewController'
             })
             .when('/room_jid/:room_jid', {
-                templateUrl: '/partials/conference.html',
+                templateUrl: '/partials/searchbyjid.html',
                 controller: 'viewController'
             })
             .otherwise({
