@@ -99,9 +99,9 @@ angular.module('jitsiLogs').service('Stats', [function() {
                     if (statsWanted[groupName] && statsWanted[groupName].indexOf(type) > -1) {
                         addPointToChart(charts, groupName, type, point, value[i][2]);
                     } else if (singleStatsWanted[groupName]) {
-                        addSingleStatValue(data, groupName, type, point, value[i][2]);
-                    } else if (boolStatsWanted[groupName]) {
-                        addPointToChart(charts, groupName, type, point, value[i][2], true);
+                        if(!addSingleStatValue(data, groupName, type, point, value[i][2])) {
+                            addPointToChart(charts, groupName, type, point, value[i][2], true);
+                        }
                     }
                 }
             }
@@ -122,7 +122,7 @@ angular.module('jitsiLogs').service('Stats', [function() {
         //we assume time is always the first column
         currentValue.x = parseInt(point[0]);
         if(isBoolean) {
-            currentValue[type] = value[type] === "true" ? 0 : 1;
+           currentValue[type] = value[type] === "true" ? 0 : 1;
         } else {
             currentValue[type] = parseInt(value[type]);
         }
@@ -143,8 +143,10 @@ angular.module('jitsiLogs').service('Stats', [function() {
                 if (!previous || value[type] !== previous[1]) {
                     data.info[type].points.push([point[0], value[type]]);
                 }
+                return true;
             }
         }
+        return false;
     }
     function cleanUpStatsWanted() {
         for(var item in statsWanted) {

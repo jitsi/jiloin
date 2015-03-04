@@ -1,5 +1,19 @@
 angular.module('jitsiLogs').filter('query', ['QueryBuilder', '$filter',
     function(QueryBuilder, $filter) {
+        function sortSeries(filter, response) {
+            var order = QueryBuilder.getCorrectSeriesOrder(filter).split(',');
+            var sortedResponse = [];
+            var ordered = 0;
+            for(var i = 0; i < order.length; i++) {
+                for(var j = 0; j < response.length; j++) {
+                    if(order[i] === response[j].name) {
+                        sortedResponse[ordered] = response[j];
+                        ordered++;
+                    }
+                }
+            }
+            return sortedResponse;
+        }
     return function(response, filter) {
         switch(filter) {
             //merge conference_created and conference_room series so we
@@ -43,28 +57,30 @@ angular.module('jitsiLogs').filter('query', ['QueryBuilder', '$filter',
                 }
                 response = data;
                 break;
-
+            case "endpoint_id":
+                var info = {};
+                var tables = [];
+                for(var i = 0; i < response.length; i++) {
+                    if(response[i].name === "endpoint_created") {
+                        info.endpoint_created = $filter('time')(response[i].points[0][0]);
+                    } else if(response[i].name === "endpoint_display_name") {
+                        info.endpoint_display_name = response[i].points[0][0];
+                    } else if(response[i].name === "channel_created") {
+                        tables = tables.concat(response[i]);
+                    }
+                }
+                response = {info: info, tables: tables};
+                break;
             case "conference_info":
                 for(var i = 0; i < response.length; i++) {
                     if(response[i].name === "endpoint_created") {
                         response[i].name = "participants";
                     }
                 }
-            default:
-                var order = QueryBuilder.getCorrectSeriesOrder(filter).split(',');
-                var sortedResponse = [];
-                var ordered = 0;
-                for(var i = 0; i < order.length; i++) {
-                    for(var j = 0; j < response.length; j++) {
-                        if(order[i] === response[j].name) {
-                            sortedResponse[ordered] = response[j];
-                            ordered++;
-                        }
-                    }
-                }
-                response = sortedResponse;
+                response = sortSeries(filter, response);
                 break;
-
+            default:
+                response = sortSeries(filter, response);
         }
         return response;
     }

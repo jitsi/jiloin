@@ -2,8 +2,18 @@
 <div id="conferences">
     <div class="padding"></div>
     <div class="info" ng-if="response.length === 0">No results were found</div>
-    <span  ng-repeat="data in response">
-        <db-table ng-if="data.name!=='peer_connection_stats'" data="data"></db-table>
+    <div id="endpoint-info" class="table">
+        <table>
+            <tr ng-repeat="(key, value) in response.info"
+                ng-class-even="'lightRow'"
+                ng-class-odd="'darkRow'">
+                <td class="info-key">{{key}}</td>
+                <td class="info-value">{{value}}</td>
+            </tr>
+        </table>
+    </div>
+    <span  ng-repeat="data in response.tables">
+        <db-table data="data"></db-table>
     </span>
 </div>
 <div id="loading" ng-if="loading">Loading...</div>
