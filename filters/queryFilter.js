@@ -64,7 +64,11 @@ angular.module('jitsiLogs').filter('query', ['QueryBuilder', '$filter',
                     if(response[i].name === "endpoint_created") {
                         info.endpoint_created = $filter('time')(response[i].points[0][0]);
                     } else if(response[i].name === "endpoint_display_name") {
-                        info.endpoint_display_name = response[i].points[0][0];
+                        for(var j = 0; j < response[i].columns.length; j++) {
+                            if(response[i].columns[j] === "display_name") {
+                                info.endpoint_display_name = response[i].points[0][j];
+                            }
+                        }
                     } else if(response[i].name === "channel_created") {
                         tables = tables.concat(response[i]);
                     }
