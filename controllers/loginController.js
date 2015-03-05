@@ -1,7 +1,13 @@
 angular.module('jitsiLogs').
-    controller('loginController', ['$scope', '$location', 'Database', function($scope, $location, Database) {
+    controller('loginController', ['$scope', '$location', 'Login', function($scope, $location, Login) {
         $scope.login = function() {
-            Database.connect($scope.username, $scope.password);
-            $location.path('/conferences');
+            if(Login.login($scope.username, $scope.password)) {
+
+                $location.path('/conferences');
+            } else {
+                $scope.username = '';
+                $scope.password = '';
+                $scope.errorMessage = true;
+            }
         };
 }]);

@@ -1,7 +1,7 @@
 angular.module('jitsiLogs').
     controller('viewController',
-    ['$scope', 'Stats', '$timeout', '$routeParams', '$location', 'QueryBuilder', 'Database', '$filter',
-        function($scope, Stats, $timeout, $routeParams, $location, QueryBuilder, Database, $filter) {
+    ['$scope', 'Stats', '$timeout', '$routeParams', '$location', 'QueryBuilder', 'Database', '$filter', 'Login',
+        function($scope, Stats, $timeout, $routeParams, $location, QueryBuilder, Database, $filter, Login) {
 
     $scope.fieldName = $location.path().split('/')[1];
     if($routeParams[$scope.fieldName]) {
@@ -11,10 +11,11 @@ angular.module('jitsiLogs').
         $scope.query = QueryBuilder.getQueryForSeries('conference_room');
     }
     $scope.makeQuery = function() {
-        Database.query($scope.query, function(response) {
+        function success(response) {
             $scope.error = false;
             $scope.response = $filter('query')(response, $scope.fieldName);
-        }, function(response) {
+        }
+        function error(response) {
             $scope.response = {};
             console.log(response);
             $scope.searchFor = response.responseText;
@@ -23,7 +24,14 @@ angular.module('jitsiLogs').
                 $scope.error = false;
                 $scope.searchFor = '';
             }, 3000);
-        });
+        }
+        if(!Login.isLoggedIn()) {
+            if(!Login.login()) {
+                $location.path('/');
+                return;
+            }
+        }
+        Database.query($scope.query, success, error);
         $scope.loadAdditionalData = function(query, successCallback, errorCallback) {
             $scope.loading = true;
             Database.query(query, function(response) {

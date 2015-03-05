@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('jitsiLogs', ['ngRoute', 'n3-line-chart', 'angularUtils.directives.dirPagination']);
+var app = angular.module('jitsiLogs', ['ngRoute', 'ngCookies', 'n3-line-chart', 'angularUtils.directives.dirPagination']);
 app.config(['$routeProvider', '$locationProvider',
     function($routeProvider, $locationProvider) {
         $routeProvider

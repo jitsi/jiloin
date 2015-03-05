@@ -11,14 +11,14 @@ angular.module('jitsiLogs').service('Database',['Config', '$q', '$location',
                 password: password,
                 database: Config.database,
                 ssl: Config.ssl
-            })
+            });
         },
         query: function(query, successCallback, errorCallback) {
             if(!database) {
-                $location.path('/');
-                return;
+               return false;
             }
             $q.when(database.query(query)).then(successCallback, errorCallback);
+            return true;
         },
         getDatabases : function() {
             if(!database) {
