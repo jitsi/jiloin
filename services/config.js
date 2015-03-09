@@ -1,3 +1,12 @@
+/*
+ * Jiloin, Jitsi Logging Interface
+ *
+ * Distributable under LGPL license.
+ * See terms of license at gnu.org.
+ *
+ * @author Svetlana Velichkova
+ */
+
 angular.module('jitsiLogs').service('Config', [function() {
     var config = {
         host: "db.fo.jitsi.net",

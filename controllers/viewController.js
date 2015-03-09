@@ -1,3 +1,12 @@
+/*
+ * Jiloin, Jitsi Logging Interface
+ *
+ * Distributable under LGPL license.
+ * See terms of license at gnu.org.
+ *
+ * @author Svetlana Velichkova
+ */
+
 angular.module('jitsiLogs').
     controller('viewController',
     ['$scope', 'Stats', '$timeout', '$routeParams', '$location', 'QueryBuilder', 'Database', '$filter', 'Login',

@@ -1,3 +1,12 @@
+/*
+ * Jiloin, Jitsi Logging Interface
+ *
+ * Distributable under LGPL license.
+ * See terms of license at gnu.org.
+ *
+ * @author Svetlana Velichkova
+ */
+
 'use strict';
 
 var app = angular.module('jitsiLogs', ['ngRoute', 'ngCookies', 'n3-line-chart', 'angularUtils.directives.dirPagination']);
